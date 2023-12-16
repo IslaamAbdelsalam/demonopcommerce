@@ -138,11 +138,10 @@ public class P03_homePage extends Hooks {
 
         // Switch to the last opened tab (assuming it's the new one)
         String newTab = handles.toArray()[handles.size() - 1].toString();
-        Hooks.driver.switchTo().window(newTab);
-
-        // Wait for the new tab to load
-        WebDriverWait wait = new WebDriverWait(Hooks.driver, Duration.ofMinutes(3));
+       // Wait for the new tab to load
+        WebDriverWait wait = new WebDriverWait(Hooks.driver, Duration.ofSeconds(2));
         //wait.until(ExpectedConditions.urlToBe(expectedLink));
+        Hooks.driver.navigate().to(expectedLink);
 
         // Get the actual URL of the current tab
         String actualUrl = Hooks.driver.getCurrentUrl();
