@@ -1,7 +1,6 @@
 package org.example.stepDefs;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.pages.P03_homePage;
@@ -17,9 +16,6 @@ P04_search searchPage = new P04_search();
         homePage.searchForProduct(productName);
     }
 
-    @Given("User navigates to home page")
-    public void userNavigatesToHomePage() {
-    }
     @And("User clicks on search button")
     public void userClicksOnSearchButton() {
         homePage.clickOnSearchButton();
@@ -28,7 +24,7 @@ P04_search searchPage = new P04_search();
     @Then("Products that searched by name will be displayed {string}")
     public void productsThatSearchedByNameWillBeDisplayed(String productName) {
 
-        searchPage.VerifyProductSearchedByNameDisplayedSuccessfull(productName);
+        searchPage.VerifyProductSearchedByNameDisplayedSuccessful(productName);
     }
 
     @When("User clicks product in search result")

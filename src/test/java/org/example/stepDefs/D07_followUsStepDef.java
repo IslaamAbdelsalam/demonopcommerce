@@ -12,7 +12,7 @@ public class D07_followUsStepDef {
         homePage.clickOnFacebookIcon();
     }
 
-    @Then("The page is opened in a new tab {string}")
+    @Then("Verify the page {string} is opened in a new tab then close it")
     public void thePageIsOpenedInANewTab (String expectedLink) throws InterruptedException {
         homePage.VerifyOpenedLink(expectedLink);
     }

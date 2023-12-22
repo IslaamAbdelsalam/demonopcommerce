@@ -57,7 +57,7 @@ public class P03_homePage extends Hooks {
         Random random = new Random();
         Actions action = new Actions(driver);
         int min = 0;
-        int max = 7;   // you are selecting random value from 0 to 2 that's why  max = count-1
+        int max = 6;   // you are selecting random value from 0 to 2 that's why  max = count-1
         int selectedUser = (int) Math.floor(Math.random() * (max - min + 1) + min);
         WebElement selectedMain = mainMenuList.get(selectedUser);
         action.moveToElement(selectedMain).perform();
@@ -104,7 +104,10 @@ public class P03_homePage extends Hooks {
     }
 
     public void userClicksOnSecondSlider() {
-        driver.findElement(By.xpath("//div[@class=\"nivoSlider\"]/a[1]")).click();
+        WebElement sliderLink = Hooks.driver.findElement(By.xpath("//div[@class=\"nivoSlider\"]/a[1]"));
+        WebDriverWait wait = new WebDriverWait(Hooks.driver, Duration.ofMinutes(2));
+        sliderLink.click();
+
     }
 
     public void SliderRedirection(String expectedUrl) {
@@ -138,11 +141,12 @@ public class P03_homePage extends Hooks {
 
         // Switch to the last opened tab (assuming it's the new one)
         String newTab = handles.toArray()[handles.size() - 1].toString();
-       // Wait for the new tab to load
-        WebDriverWait wait = new WebDriverWait(Hooks.driver, Duration.ofSeconds(2));
-        //wait.until(ExpectedConditions.urlToBe(expectedLink));
-        Hooks.driver.navigate().to(expectedLink);
+        Hooks.driver.switchTo().window(newTab);
 
+        // Wait for the new tab to load
+        WebDriverWait wait = new WebDriverWait(Hooks.driver, Duration.ofSeconds(2));
+
+        Hooks.driver.navigate().to(expectedLink);
         // Get the actual URL of the current tab
         String actualUrl = Hooks.driver.getCurrentUrl();
         System.out.println("Current URL: " + actualUrl);

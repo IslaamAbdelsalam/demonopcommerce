@@ -18,4 +18,8 @@ P03_homePage homePage = new P03_homePage();
     public void displayedProductPricesSymbolShouldBe(String euroSymbol) {
         homePage.checkCurrencySymbol(euroSymbol);
     }
+
+    @Given("User navigates to home page")
+    public void userNavigatesToHomePage() {
+    }
 }
