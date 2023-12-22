@@ -9,18 +9,12 @@ import org.example.pages.P03_homePage;
 public class D05_hoverCategoriesStepDef {
     P03_homePage homePage = new P03_homePage();
 
-    @And("User hover on main menu")
+    @And("Hover on main menu")
     public void userHoverOnMainMenu()  {
 
     }
-
-    @And("sub menu is displayed - if found")
-    public void subMenuIsDisplayedIfFound() {
-
-    }
-
-    @When("User can click on main or sub menu")
-    public void userCanClickOnMainOrSubMenu() {
+    @And("Sub menu will be displayed - if found")
+    public void displaySubMenu() {
 
     }
 
@@ -30,5 +24,7 @@ public class D05_hoverCategoriesStepDef {
     }
 
 
-
+    @When("User can click on main or sub menu")
+    public void userCanClickOnMainOrSubMenu() {
+    }
 }
