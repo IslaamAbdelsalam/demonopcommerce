@@ -6,13 +6,14 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/main/resources/features",
-        glue={"org.example.stepDefs"},
-        tags = "@Smoke",//annotation before each class or test case that will be run
-        plugin = {"pretty",
+        glue = {"org.example.stepDefs"},
+        plugin = { "pretty",
                 "html:target/cucumber.html",
                 "json:target/cucumber.json",
                 "junit:target/cukes.xml",
-                "rerun:target/rerun.txt"}
+                "rerun:target/rerun.txt"},
+        tags = "@Smoke"
+
 
 )
 public class runners extends AbstractTestNGCucumberTests {

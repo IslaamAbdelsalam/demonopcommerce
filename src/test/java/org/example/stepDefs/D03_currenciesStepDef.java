@@ -15,7 +15,7 @@ P03_homePage homePage = new P03_homePage();
     }
 
     @Then("Displayed product prices symbol should be {string}")
-    public void displayedProductPricesSymbolShouldBe(String euroSymbol) {
+    public void displayedProductPricesSymbolShouldBe(String euroSymbol){
         homePage.checkCurrencySymbol(euroSymbol);
     }
 

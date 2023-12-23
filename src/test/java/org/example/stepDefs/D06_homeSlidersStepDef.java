@@ -19,7 +19,7 @@ P03_homePage homePage  = new P03_homePage();
     }
 
     @When("User clicks on the second slider - iPhone")
-    public void userClicksOnTheSecondSliderIPhone() {
+    public void userClicksOnTheSecondSliderIPhone()  {
         homePage.userClicksOnSecondSlider();
     }
 }
