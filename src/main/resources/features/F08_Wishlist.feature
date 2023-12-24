@@ -14,3 +14,4 @@ Feature: Wishlist Functionality
     And User Clicks on with list tab at the top of the page
     And Assure if the product is added successfully
 
+

@@ -11,11 +11,9 @@ public class D05_hoverCategoriesStepDef {
 
     @And("Hover on main menu")
     public void userHoverOnMainMenu()  {
-
     }
     @And("Sub menu will be displayed - if found")
     public void displaySubMenu() {
-
     }
 
     @Then("User redirected to the chosen item page")

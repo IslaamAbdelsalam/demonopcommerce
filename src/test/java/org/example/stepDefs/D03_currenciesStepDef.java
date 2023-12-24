@@ -10,8 +10,10 @@ P03_homePage homePage = new P03_homePage();
 
 
     @When("User choose {string} currency")
-    public void userChooseCurrecy(String currency) {
+    public void userChooseCurrecy(String currency) throws InterruptedException{
         homePage.selectCurrency(currency);
+
+
     }
 
     @Then("Displayed product prices symbol should be {string}")

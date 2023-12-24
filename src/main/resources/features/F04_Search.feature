@@ -20,7 +20,7 @@
       Then Verify Sku displayed as searched "<productSku>"
 
       Examples:
-        |  productSku     |
-        |  SCI_FAITH      |
-        |  APPLE_CAM      |
-        |  SF_PRO_        |
+        |  productSku       |
+        |  SCI_FAITH        |
+        |  APPLE_CAM        |
+        |  SF_PRO_11        |

@@ -24,7 +24,6 @@ public class P02_login extends Hooks {
         soft.assertTrue(Hooks.driver.findElement(By.xpath("//form[@method=\"post\"]/div[@class!=\"title\" and @class!=\"buttons\" and @class!=\"form-fields\" and @class!=\"inputs\"]")).getText().contains("Login was unsuccessful"),"Error message does not contains the expected text");
         String displayedErrorMessageColor  =  Color.fromString(Hooks.driver.findElement(By.xpath("//form[@method=\"post\"]/div[@class != \"title\" and @class!=\"buttons\" and @class !=\"form-fields\" and @class!=\"inputs\"]")).getCssValue("color")).asHex();
         soft.assertEquals(displayedErrorMessageColor, "#e4434b", "Error message color is not match the expected color");
-
         soft.assertAll();
 
     }

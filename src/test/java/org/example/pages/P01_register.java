@@ -54,9 +54,9 @@ public class P01_register extends Hooks {
         Hooks.driver.findElement(By.id("register-button")).click();
     }
     public void checkRegisterSuccessMessage() {
-        Assert.assertTrue(Hooks.driver.findElement(By.className("result")).isDisplayed(), "Success message is not displayed");
+        soft.assertTrue(Hooks.driver.findElement(By.className("result")).isDisplayed(), "Success message is not displayed");
         soft.assertEquals(Hooks.driver.findElement(By.className("result")).getText(), "Your registration completed", "Success message text is not match the expected");
-        soft.assertEquals(Hooks.driver.findElement(By.className("result")).getCssValue("color"), "rgba(76, 177, 124, 1))", "Success message color is not match the expected");
+        soft.assertEquals(Hooks.driver.findElement(By.className("result")).getCssValue("color"), "rgba(76, 177, 124, 1)", "Success message color is not match the expected");
         soft.assertAll();
     }
 }

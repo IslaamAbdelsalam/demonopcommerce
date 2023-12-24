@@ -7,7 +7,7 @@
     And User select gender type "male"
     And User enter first name "automation" and last name "tester"
     And User enter date of birth "4" , "October" , "2018"
-    And User enter email "Amit50786@example.com"
+    And User enter email "Amit55786@example.com"
     And User enter Password and confirm password fields "P@ssw0rd"
     When User clicks on register button
     Then Success message is displayed

@@ -24,29 +24,34 @@ import org.testng.asserts.SoftAssert;
 public class P03_homePage extends Hooks {
 
     SoftAssert soft = new SoftAssert();
+    //register method
     public void clickOnRegisterTab() {
         Hooks.driver.findElement(By.cssSelector("a[class=\"ico-register\"]")).click();
     }
-
+    //login method
     public void clickOnLoginTab() {
         Hooks.driver.findElement(By.cssSelector("a[class=\"ico-login\"]")).click();
     }
 
     //currency selection methods
-    public void selectCurrency(String currency) {
+    public void selectCurrency(String currency) throws InterruptedException {
         Select selectCurrency = new Select(Hooks.driver.findElement(By.id("customerCurrency")));
+
+        //sleep and re-click on the element because of page synchronization issue
+        Thread.sleep(1000);
         selectCurrency.selectByVisibleText(currency);
-    }
+      }
 
     public void checkCurrencySymbol(String symbol) {
-       // Hooks.driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
         List<WebElement> products = driver.findElements(By.xpath("/html/body/div[6]/div[3]/div/div/div/div/div[4]/div[2]/div"));
         for (int i = 0; i < products.size(); i++)
         {
             String productSymbol = products.get(i).getText();
-            Assert.assertTrue(productSymbol.contains(symbol));
+            soft.assertTrue(productSymbol.contains(symbol),"Symbol is not changed to euro");
         }
-    }
+        soft.assertAll();
+       }
 
     //Search for product methods
     public void searchForProduct(String productNameOrSku) {
@@ -76,6 +81,9 @@ public class P03_homePage extends Hooks {
         Assert.assertEquals(Hooks.driver.findElement(By.xpath("//div[@class=\"additional-details\"]/div[@class=\"sku\"]/span[@class!=\"label\"]")).getText(),productSku);
     }
     //Menu Hover and selection Method
+
+   int hoverMainMenu=0;
+
     public void menuSelection() throws InterruptedException {
         //get main menu categories / items
         List<WebElement> mainMenuList = Hooks.driver.findElements(By.xpath("/html/body/div[6]/div[2]/ul[1]/li/a"));
@@ -84,29 +92,30 @@ public class P03_homePage extends Hooks {
         int min = 0;
         int max = mainMenuList.size() - 1;   // you are selecting random value from 0 to 2 that's why  max = count-1
 
-        int hoverMainMenu = (int) Math.floor(Math.random() * (max - min + 1) + min);
+        hoverMainMenu =  (int) Math.floor(Math.random() * (max - min + 1) + min);
         WebElement selectedCategory = mainMenuList.get(hoverMainMenu);
         action.moveToElement(selectedCategory).perform();
-        Thread.sleep(2000);
 
         // Check if the selected category contains sub-categories
-        hoverMainMenu = hoverMainMenu + 1;
-        List<WebElement> liSubCategories = selectedCategory.findElements(By.xpath("//div[@class=\"master-wrapper-page\"]/div[@class=\"header-menu\"]/ul[1]/li[" + hoverMainMenu + "]/ul/li/a"));
+        if(hoverMainMenu!=6)
+        hoverMainMenu = hoverMainMenu+1 ;
 
+        List<WebElement> liSubCategories = selectedCategory.findElements(By.xpath("//div[@class=\"master-wrapper-page\"]/div[@class=\"header-menu\"]/ul[1]/li[" + hoverMainMenu + "]/ul/li/a"));
+        Hooks.driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         if (!liSubCategories.isEmpty())
         {
             int x = random.nextInt(liSubCategories.size());
 
             // Click on a random sub-category
             WebElement selectedSubCategory = liSubCategories.get(x);
-            Hooks.driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
             // Get the sub category name & click on it
             String selectedSubCategoryName = selectedSubCategory.getText().toLowerCase().trim();
             selectedSubCategory.click();
             // Get the sub-category title to compare with
             String subCategoryTitle = Hooks.driver.findElement(By.xpath("//div[@Class=\"page-title\"]/h1")).getText().toLowerCase().trim();
             // Assert that the sub-category title is equal or contains the selected sub-category name
-            Assert.assertEquals(subCategoryTitle, selectedSubCategoryName);
+            Assert.assertTrue(subCategoryTitle.contains(selectedSubCategoryName));
         }
         else
         {
@@ -117,8 +126,9 @@ public class P03_homePage extends Hooks {
             // Get the main category title
             String mainCategoryTitle = Hooks.driver.findElement(By.xpath("//div[@Class=\"page-title\"]/h1")).getText().toLowerCase().trim();
             // Assert that the main category title is equal or contains the selected main category name
-            Assert.assertEquals(mainCategoryTitle, mainMenuSelection);
+            Assert.assertTrue(mainCategoryTitle.contains(mainMenuSelection));
         }
+        Hooks.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     //Slider Methods
@@ -163,6 +173,9 @@ public class P03_homePage extends Hooks {
         Hooks.driver.findElement(By.xpath("//ul/li[@class=\"youtube\"]/a")).click();
     }
     public void VerifyOpenedLink(String expectedLink) throws InterruptedException {
+        // Wait for the new tab to load
+        WebDriverWait wait = new WebDriverWait(Hooks.driver, Duration.ofSeconds(2));
+
         // Get the handles of all open tabs
         Set<String> handles = Hooks.driver.getWindowHandles();
 
@@ -170,8 +183,6 @@ public class P03_homePage extends Hooks {
         String newTab = handles.toArray()[handles.size() - 1].toString();
         Hooks.driver.switchTo().window(newTab);
 
-        // Wait for the new tab to load
-        WebDriverWait wait = new WebDriverWait(Hooks.driver, Duration.ofSeconds(2));
 
         Hooks.driver.navigate().to(expectedLink);
         // Get the actual URL of the current tab
@@ -186,11 +197,16 @@ public class P03_homePage extends Hooks {
     }
 
     //wish lis methods
-    public void wishListHTCProduct()
-    {
-        driver.findElement(By.xpath("//div[@class=\"item-box\"][3]//div[@class=\"buttons\"]/button[3]")).click();
+    public void wishListHTCProduct() throws InterruptedException {
+       WebElement htcWithList=  driver.findElement(By.xpath("//div[@class=\"item-box\"][3]//div[@class=\"buttons\"]/button[3]"));
+        ((JavascriptExecutor) Hooks.driver).executeScript("arguments[0].click();", htcWithList);
+        //sleep and re-click on the element because of page synchronization issue
+        Thread.sleep(1000);
+        htcWithList.click();
     }
     public void verifyWishlistSuccessMessage()   throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait( Hooks.driver, Duration.ofSeconds(50));
+        wait.until(ExpectedConditions.visibilityOf(Hooks.driver.findElement(By.xpath("//div[@id=\"bar-notification\"]/div"))));
 
         WebElement messageBar = Hooks.driver.findElement(By.xpath("//div[@id=\"bar-notification\"]/div"));
         soft.assertTrue(messageBar.isDisplayed(), "Success message is not displayed");
